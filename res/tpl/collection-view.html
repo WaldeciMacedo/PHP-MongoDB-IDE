@@ -1,0 +1,79 @@
+<div class="margin-top-20" style="text-align:center">
+	<ul class="pagination" style="margin:0 auto">
+		<li><a href="#">Prev</a></li>
+		{loop="pages"}
+		{if="$value=='...'"}
+		<li><a href="javascript:void(0)">{$value}</a></li>
+		{else}
+		<li {if="$page == $value"}class="active"{/if}><a href="?collection={$collection}&limit={$limit}&skip={$value*$limit}">{$value}</a></li>
+		{/if}
+		{/loop}
+		<li><a href="#">Next</a></li>
+	</ul>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Fields</th>
+					<th>&nbsp</th>
+					<th>&nbsp</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop="rows"}
+				<tr>
+					<td>{$counter+1}</td>
+					<td class="json-string">{$value.name}</td>
+					<td>{$value.fields}</td>
+					<td><a href="document-edit.php?{$value.id}" class="btn btn-primary">Edit</button></td>
+					<td><a onclick="return confirm('Are you sure you want to delete this document?')" href="document-delete.php?{$value.id}" class="btn btn-danger">Delete</button></td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+			
+		
+	</div>
+</div>
+
+<div class="margin-top-20" style="text-align:center">
+	<ul class="pagination" style="margin:0 auto">
+		<li><a href="#">Prev</a></li>
+		{loop="pages"}
+		{if="$value=='...'"}
+		<li><a href="javascript:void(0)">{$value}</a></li>
+		{else}
+		<li {if="$page == $value"}class="active"{/if}><a href="?collection={$collection}&limit={$limit}&skip={$value*$limit}">{$value}</a></li>
+		{/if}
+		{/loop}
+		<li><a href="#">Next</a></li>
+	</ul>
+</div>
+
+<link href="res/css/pretty-json.css" rel="stylesheet" type="text/css">
+<script src="res/js/underscore-min.js"></script>
+<script src="res/js/backbone-min.js"></script>
+<script src="res/js/pretty-json-min.js"></script>
+<script>
+$(function(){
+
+	$(".json-string").each(function(index, el){
+
+		var json = $(el).text();
+		var o = JSON.parse(json);
+
+		var node = new PrettyJSON.view.Node({ 
+	        el:$(el), 
+	        data:o
+	    });
+
+	});
+
+});
+</script>

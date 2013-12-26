@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-md-12">
+		{if="$msg_success"}
+		<div class="note note-success">
+			<h4 class="block">Success</h4>
+			<p>{$msg_success}</p>
+		</div>
+		<script>
+		$(function(){
+			$(".note-success").delay(3000).slideUp();
+		});
+		</script>
+		{/if}
+		<form action="document-edit-save.php" method="post" class="form-horizontal">
+			<input type="hidden" name="__collection_name" value="{$collection}">
+			<div class="form-body">
+				{loop="fields"}
+				<div class="form-group">
+					<label class="col-md-3 control-label" style="font-weight:bold">{$key}</label>
+					<div class="col-md-4">
+						{if="$key=='_id'"}
+						<p class="form-control-static text-muted">{$value}</p>
+						<input type="hidden" name="_id" value="{$value}">
+						{else}
+							<input type="text" name="{$key}" class="form-control" value="{$value}">
+						{/if}
+					</div>
+				</div>
+				{/loop}
+			</div>
+			<div class="form-actions fluid">
+				<div class="col-md-offset-3 col-md-9">
+					<button type="submit" class="btn blue">Save</button>
+					<a href="javascript:history.back(-1)" class="btn default">Cancel</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
